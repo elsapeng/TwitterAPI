@@ -38,17 +38,17 @@ paths:
           in: query
           description: Specifies the number of tweets to try and retrieve
           required: false
-          type: integer
+          type: string
         - name: since_id
           in: query
           description: Returns result with an ID greater than the specified ID
           required: false
-          type: integer
+          type: string
         - name: max_id
           in: query
           description: Returns results with an ID less than or equal to the specified ID
           required: false
-          type: integer
+          type: string
         - name: trim_user
           in: query
           description: When set to either true, t or 1, each tweet returned in a timeline will include a user object
@@ -75,17 +75,17 @@ paths:
           in: query
           description: Specifies the number of tweets to try and retrieve
           required: false
-          type: integer
+          type: string
         - name: since_id
           in: query
           description: Returns result with an ID greater than the specified ID
           required: false
-          type: integer
+          type: string
         - name: max_id
           in: query
           description: Returns results with an ID less than or equal to the specified ID
           required: false
-          type: integer
+          type: string
         - name: trim_user
           in: query
           description: When set to either true, t or 1, each tweet returned in a timeline will include a user object
@@ -111,31 +111,568 @@ paths:
           description: Success
   /statuses/home_timeline:
     get:
-      description: 
-          
-          
-      
-  /hello:
-    # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
-    get:
-      description: Returns 'Hello' to the caller
-      # used as the method name of the controller
-      operationId: hello
+      description: statuses of home_timelines
       parameters:
-        - name: name
+        - name: since_id
           in: query
-          description: The name of the person to whom to say hello
+          description: Returns result with an ID greater than the specified ID
+          required: false
+          type: string
+        - name: max_id
+          in: query
+          description: Returns results with an ID less than or equal to the specified ID
+          required: false
+          type: string
+        - name: trim_user
+          in: query
+          description: When set to either true, t or 1, each tweet returned in a timeline will include a user object
+          required: false
+          type: string
+        - name: exclude_replies
+          in: query
+          description: This paramters will prevent from appearing in the returned timeline
+          required: false
+          type: boolean
+        - name: contributor_details
+          in: query
+          description: This paramters enhances the contributors element of the status response to include the screen_name of the contributor
+          required: false
+          type: boolean
+      responses:
+        "200":
+          description: Success
+  /statuses/retweets/{id}:
+    get:
+      description: Return up to 100 of the first retweets of a given tweet
+      parameters:
+        - name: id 
+          in: path
+          description: The numerical ID of the desired status
+          required: true
+          type: string
+        - name: count
+          in: query
+          description: Specifies the number of tweets to try and retrieve
+          required: false
+          type: string
+        - name: trim_user
+          in: query
+          description: When set to either true, t or 1, each tweet returned in a timeline will include a user object
           required: false
           type: string
       responses:
         "200":
           description: Success
-        # responses may fall through to errors
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
+  /statuses/show/{id}:
+    get:
+      description: Returns a single status, specified by the id parameter below
+      parameters:
+        - name: id
+          in: path
+          description: The numerical ID of the desired status
+          required: true
+          type: string
+        - name: trim_user
+          in: query
+          description: When set to either true, t or 1, each tweet returned in a timeline will include a user object
+          required: false
+          type: string
+        - name: include_my_retweet
+          in: query
+          description: When set to either true, t or 1, any Tweets returned that have been retweeted by the authenticating
+          required: true
+          type: string
+        - name: include_entities
+          type: string
+          in: query
+          description: The entities node will be disincluded when set to false
+          required: false
+          type: string
+      responses: 
+        "200":
+          description: Success
+  /statuses/destroy/{id}:
+    post:
+      description: Destroys the status specified by the required ID parameter
+      parameters:
+        - name: id
+          in: path
+          description: The numerical ID of the desired status
+          required: true
+          type: string
+        - name: trim_user
+          in: query
+          description: When set to either true, t or 1, each tweet returned in a timeline will include a user object
+          required: false
+          type: string
+      responses: 
+        "200":
+          description: Success
+  /statuses/update:
+    post:
+      description: Updates the authenticating user's status
+      parameters:
+        - name: status
+          in: query
+          description: The text of your status update
+          required: true
+          type: string
+        - name: in_reply_to_status_id
+          in: query
+          description: The ID of an existing status
+          required: false
+          type: string
+        - name: lat
+          in: query
+          description: The latitude of the location
+          required: false
+          type: string 
+        - name: long
+          in: query
+          description: The longitude of the location
+          required: false
+          type: string
+        - name: place_id
+          in: query
+          description: A place in the world
+          required: false
+          type: string
+        - name: display_coordinates
+          in: query
+          description: Whether or not to put a pin on the exact coordinates a tweet
+          required: false
+          type: string
+        - name: trim_user
+          in: query
+          description: When set to either true, t or 1, each tweet returned in a timeline will include a user object
+          required: false
+          type: string
+      responses: 
+        "200":
+          description: Success
+  /statuses/retweets/{id}:
+    post:
+      description: Retweens a tweet
+      parameters:
+        - name: id
+          in: path
+          description: The numerical ID of the desired status
+          required: true
+          type: string
+        - name: trim_user
+          in: query
+          description: When set to either true, t or 1, each tweet returned in a timeline will include a user object
+          required: false
+          type: string
+      responses: 
+        "200":
+          description: Success
+  /statuses/update_with_media:
+    post:
+      description: Updates the authenticating user's status and attaches media for upload
+      parameters:
+        - name: status
+          in: query
+          description: The text of your status update
+          required: true
+          type: string
+        - name: media
+          in: query
+          description: Up to max_media_per_upload files may be specified in the request
+          required: true
+          type: string
+        - name: possibly_sensitive
+          in: query
+          description: Set to true for content which may not be suitable for every audience
+          required: false
+          type: string
+        - name: in_reply_to_status_id
+          in: query
+          description: The ID of an existing status
+          required: false
+          type: string
+        - name: lat
+          in: query
+          description: The latitude of the location
+          required: false
+          type: string 
+        - name: long
+          in: query
+          description: The longitude of the location
+          required: false
+          type: string
+        - name: place_id
+          in: query
+          description: A place in the world
+          required: false
+          type: string
+        - name: display_coordinates
+          in: query
+          description: Whether or not to put a pin on the exact coordinates a tweet
+          required: false
+          type: string
+      responses: 
+        "200":
+          description: Success
+  /statuses/oembed:
+    get:
+      description: Returns information allowing the creation of an embedded representation
+      parameters: 
+        - name: id
+          in: query
+          description: The tweet/status id to return embed code for
+          required: true
+          type: string
+        - name: url
+          in: query
+          description: The encoded URL of the Tweet status to be embedded
+          required: true
+          type: string
+        - name: maxwidth
+          in: query
+          description: The maximum width in pixels that the embed should be rendered at 
+          required: false
+          type: string
+        - name: hide_media
+          in: query
+          description: Specifies whether the embedded tweet should automatically show the original message in the case that the embedded Tweet is a reply
+          required: false
+          type: string
+        - name: hide_thread
+          in: query
+          description: Specifies whether the embedded Tweet html should include a 'script' element pointing to widgets.js
+          required: false
+          type: string
+        - name: align
+          in: query
+          description: Specifies whether the embedded Tweet should be left aligned
+          required: false
+          type: string
+        - name: related
+          in: query
+          description: A value for the TWT related parameters
+          required: false
+          type: string
+        - name: lang
+          in: query
+          description: Languages code for the rendered embed
+          required: false
+          type: string 
+      responses: 
+        "200":
+          description: Success
+  /lists/list:
+    get:
+      description: 
+      parameters:
+        - name: screen_name 
+          in: query 
+          description: The screen name of the user for whom to return results for 
+          required: true
+          type: string
+        - name: user_id
+          in: query
+          description: The ID of the user for whom to return results for 
+          required: true
+          type: string
+      responses: 
+        "200":
+          description: Success
+  /lists/statuses:
+   get:
+      description: 
+      parameters:
+        - name: list_id 
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query 
+          description: You can identify a list by its slug instead of its numerical id 
+          required: true
+          type: string 
+        - name: owner_screen_name
+          in: query
+          description: The screen name of the user who owns the list being requested by a slug 
+          required: false 
+          type: string
+        - name: owner_id
+          in: query 
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
+        - name: since_id
+          in: query
+          description: Returns results with an ID greater than the sepcified ID
+          required: false 
+          type: string 
+        - name: max_id
+          in: query
+          description: Returns results with an ID less than or equal to the specified ID
+          required: false
+          type: string
+        - name: 
+          in: count
+          description: query  
+          required: Specifies the number of results to retrieve per page
+          type: string
+        - name: include_entities
+          in: query 
+          description: Entities are ON by default 
+          required: false
+          type: string
+        - name: include_rts
+          in: query
+          description: When set to either true, t or 1, the list timeline will contain native retweets in addition to the standard stream of tweets 
+          required: false
+          type: string 
+      responses: 
+        "200":
+          description: Success
+  /lists/members/destroy:
+   get:
+      description: 
+      parameters:
+        - name: list_id 
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list by its slug instrad of its numerical id 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /lists/memberships:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /lists/subscribers:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /lists/subscribers/create:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /lists/subscribers/show:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /lists/subscribers/destroy:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /lists/memebers:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /lists/destroy:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /lists/update:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /lists/create:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /lists/show:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /lists/subscriptions:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+  /list/members/destroy_all:
+   get:
+      description: 
+      parameters:
+        - name:  
+          in: 
+          description: 
+          required: 
+          type:
+        - name: 
+          in: 
+          description: 
+          required: 
+          type:
+      responses: 
+        "200":
+          description: Success
+          
+
 # complex objects have schema definitions
 definitions:
   ErrorResponse:
