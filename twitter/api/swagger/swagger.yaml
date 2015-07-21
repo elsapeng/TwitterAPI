@@ -18,6 +18,91 @@ consumes:
 produces:
   - application/json
 paths:
+  /statuses/mentions_timeline:
+    get:
+      description: statuses of mentions_timeline
+      parameters:
+        - name: count
+          in: query
+          description: Specifies the number of tweets to try and retrieve
+          required: false
+          type: integer
+        - name: since_id
+          in: query
+          description: Returns result with an ID greater than the specified ID
+          required: false
+          type: integer
+        - name: max_id
+          in: query
+          description: Returns results with an ID less than or equal to the specified ID
+          required: false
+          type: integer
+        - name: trim_user
+          in: query
+          description: When set to either true, t or 1, each tweet returned in a timeline will include a user object
+          required: false
+          type: string
+        - name: contributor_details
+          in: query
+          description: This parameter enhances the contributors element of the status response
+          required: false
+          type: string
+        - name: include_entities
+          in: query
+          description: The entities node will be disincluded when set to false
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+  /statuses/user_timeline:
+    get: 
+      description: statuses of user_timeline
+      parameters:
+        - name: count
+          in: query
+          description: Specifies the number of tweets to try and retrieve
+          required: false
+          type: integer
+        - name: since_id
+          in: query
+          description: Returns result with an ID greater than the specified ID
+          required: false
+          type: integer
+        - name: max_id
+          in: query
+          description: Returns results with an ID less than or equal to the specified ID
+          required: false
+          type: integer
+        - name: trim_user
+          in: query
+          description: When set to either true, t or 1, each tweet returned in a timeline will include a user object
+          required: false
+          type: string
+        - name: exclude_replies
+          in: query
+          description: This paramters will prevent from appearing in the returned timeline
+          required: false
+          type: boolean
+        - name: contributor_details
+          in: query
+          description: This paramters enhances the contributors element of the status response to include the screen_name of the contributor
+          required: false
+          type: boolean
+        - name: include_rts
+          in: query
+          description: When set to false, the timeline will strip any native retweet
+          required: false
+          type: boolean
+      responses:
+        "200":
+          description: Success
+  /statuses/home_timeline:
+    get:
+      description: 
+          
+          
+      
   /hello:
     # binds a127 app logic to a route
     x-swagger-router-controller: hello_world
