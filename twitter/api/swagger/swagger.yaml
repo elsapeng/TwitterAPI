@@ -51,6 +51,447 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+            
+  /direct_messages/sent:
+    get:
+      description: return 20 most recent direct messages sent
+      parameters:
+        - name: since_id
+          in: query
+          required: false
+          type: string
+        - name: max_id
+          in: query
+          required: false
+          type: string
+        - name: count
+          in: query
+          required: false
+          type: string
+        - name: page
+          in: query
+          required: false
+          type: string
+        - name: include_entities
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: OK
+          
+  /direct_messages/show:
+    get:
+      description: returns a single direct message specified by an id
+      parameters:
+        - name: id
+          in: query
+          description: ID of direct message
+          type: string
+          required: true
+      responses:
+        200:
+          description: OK
+    
+  /search/tweets:
+    get:
+      description: returns collection of relevant Tweets matching query
+      parameters:
+      - name: q
+        in: query
+        description: URL-encoded search query of 500 characters max
+        type: string
+        required: true
+      - name: geocode
+        in: query
+        description: returns tweets by users located within given radius
+        type: string
+        required: false
+      - name: lang
+        in: query
+        description: restricts tweets to a given language
+        type: string
+        required: false
+      - name: locale
+        in: query
+        description: language of query you are sending
+        type: string
+        required: false
+      - name: result_type
+        in: query
+        description: specifies type of search results you prefer
+        type: string
+        required: false
+      - name: count
+        in: query
+        description: number of tweets to return
+        type: string
+      - name: until
+        in: query
+        description: returns tweets created before given date
+        type: string
+      - name: since_id
+        in: query
+        description: return results with ID greater than specified
+        type: string
+      - name: max_id
+        in: query
+        description: returns results with an ID less than/equal to specified ID
+        type: string
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      - name: callback
+        in: query
+        description: response will use the callback with given name
+        type: string
+      responses:
+        200:
+          description: OK
+    
+  /direct_messages:
+    get:
+      description: return 20 most recent direct messages sent to user
+      parameters:
+      - name: since_id
+        in: query
+        description: return results with ID greater than specified
+        type: string
+      - name: max_id
+        in: query
+        description: returns results with an ID less than/equal to specified ID
+        type: string
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      - name: skip_status
+        in: query
+        description: whether or not to include status
+        type: string
+      responses:
+        200:
+          description: OK
+          
+  /direct_messages/destroy:
+    post:
+      description: destroys direct messages specified in required ID
+      parameters:
+      - name: id
+        in: query
+        description: ID of direct message to delete
+        type: string
+        required: true
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      responses:
+        200:
+          description: OK
+  
+  /direct_messages/new:
+    post:
+      description: sends a new direct message to specified user
+      parameters:
+      - name: user_id
+        in: query
+        description: description
+        type: string
+        required: true
+      - name: screen_name
+        in: query
+        description: screen name of user receiving message
+        type: string
+      - name: text
+        in: query
+        description: text of your direct message
+        type: string
+        required: true
+      responses:
+        200:
+          description: OK
+    
+  /friends/ids:
+    get:
+      description: returns a cursored collection of user IDs followed by user
+      parameters:
+      - name: user_id
+        in: query
+        description: ID of user for whom to return results for
+        type: string
+      - name: screen_name
+        in: query
+        description: screen name of user for whom to return results for
+        type: string
+      - name: cursor
+        in: query
+        description: causes list of connections to be broken in pages
+        type: string
+      - name: stringify_ids
+        in: query
+        description: IDs converted to strings
+        type: string
+      - name: count
+        in: query
+        description: number of IDs to attempt retrieval of
+        type: string
+      responses:
+        200:
+          description: OK
+    
+  /followers/ids:
+    get:
+      description: returns a cursored collection of user IDs following the user
+      parameters:
+      - name: user_id
+        in: query
+        description: ID of user for whom to return results for
+        type: string
+      - name: screen_name
+        in: query
+        description: screen name of user for whom to return results for
+        type: string
+      - name: cursor
+        in: query
+        description: causes list of connections to be broken in pages
+        type: string
+      - name: stringify_ids
+        in: query
+        description: IDs converted to strings
+        type: string
+      - name: count
+        in: query
+        description: number of IDs to attempt retrieval of
+        type: string
+      responses:
+        200:
+          description: OK
+      
+  /friendships/incoming:
+    get:
+      description: returns collection of IDs of users with pending follow request
+      parameters:
+      - name: cursor
+        in: query
+        description: causes list of connections to be broken in pages
+        type: string
+      - name: stringify_ids
+        in: query
+        description: IDs converted to strings
+        type: string
+      responses:
+        200:
+          description: OK
+          
+  /friendships/outgoing:
+    get:
+      description: returns collection of IDs of users with pending follow request from the user
+      parameters:
+      - name: cursor
+        in: query
+        description: causes list of connections to be broken in pages
+        type: string
+      - name: stringify_ids
+        in: query
+        description: IDs converted to strings
+        type: string
+      responses:
+        200:
+          description: OK
+    
+  /friendships/create:
+    post:
+      description: allows users to follow user sepcified by ID
+      parameters:
+      - name: screen_name
+        in: query
+        description: screen name of user for whom to befriend
+        type: string
+      - name: user_id
+        in: query
+        description: ID of user for whom to befriend
+        type: string
+      - name: follow
+        in: query
+        description: enable notifications for target user
+        type: string
+      responses:
+        200:
+          description: OK
+        
+  /friendships/destroy:
+    post:
+      description: allows user to unfollow user psecified by ID
+      parameters:
+      - name: screen_name
+        in: query
+        description: screen name of user for whom to befriend
+        type: string
+        required: true
+      - name: user_id
+        in: query
+        description: ID of user for whom to befriend
+        type: string
+        required: true
+      responses:
+        200:
+          description: OK
+  
+  /friendships/update:
+    post:
+      description: Allows one to enable or disable settings for specified user
+      parameters:
+      - name: screen_name
+        in: query
+        description: screen name of user for whom to befriend
+        type: string
+        required: true
+      - name: user_id
+        in: query
+        description: ID of user for whom to befriend
+        type: string
+        required: true
+      - name: device
+        in: query
+        description: enable/disable device notifications for user
+        type: string
+        required: true
+      - name: retweets
+        in: query
+        description: enable/disable retweets from target user
+        type: string
+        required: true
+      responses:
+        200:
+          description: OK
+    
+  /friendships/show:
+    get:
+      description: returns detailed info about relationship between two users
+      parameters:
+      - name: source_id
+        in: query
+        description: user id of subject user
+        type: string
+      - name: source_screen_name
+        in: query
+        description: screen_name of subject user
+        type: string
+      - name: target_id
+        in: query
+        description: user id of target user
+        type: string
+        required: true
+      - name: target_screen_name
+        in: query
+        description: screen name of target user
+        type: string
+        required: true
+      responses:
+        200:
+          description: OK
+          
+  /account/settings:
+    get:
+      summary: returns settings for user
+      description: returns settings for user
+      responses:
+        200:
+          description: OK
+    post:
+      summary: updates user's settings
+      description: updates user's settings
+      parameters:
+      - name: trend_location_woeid
+        in: query
+        description: the Yahoo! Where On Earth ID to user as defaul tend location
+        type: string
+      - name: sleep_time_enabled
+        in: query
+        description: enables/disables sleep time, silencing notifications
+        type: string
+      - name: start_sleep_time
+        in: query
+        description: the hour that sleep time should begin if enabled
+        type: string
+      - name: end_sleep_time
+        in: query
+        description: the hour that sleep time should end if enabled
+        type: string
+      - name: time_zone
+        in: query
+        description: timezone dates and times should be displayed in
+        type: string
+      - name: lang
+        in: query
+        description: language which Twitter should render in for the user
+        type: string
+      responses:
+        200:
+          description: OK
+  
+  /account/update_delivery_device:
+    post:
+      summary: sets which device Twitter delivers updates to for user
+      description: sets which device Twitter delivers updates to for user
+      parameters:
+      - name: device
+        in: query
+        description: must be one of sms, none
+        type: string
+        required: true
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      responses:
+        200:
+          description: OK
+          
+  /account/update_profile:
+    post:
+      summary: sets values that users ar eable to set under Account tab
+      description: sets values that users ar eable to set under Account tab
+      parameters:
+      - name: name
+        in: query
+        description: full name of profile
+        type: string
+      - name: url
+        in: query
+        description: url associated with profile
+        type: string
+      - name: location
+        in: query
+        description: city or country describing where user of account is.
+        type: string
+      - name: description
+        in: query
+        description: a description of user owning account
+        type: string
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      - name: skip_status
+        in: query
+        description: whether or not to include statuses in response
+        type: string
+      responses:
+        200:
+          description: OK
+    
+  /account/update_profile_background_image:
+    post:
+      summary: 
+      description: 
+      responses:
+        200:
+          description: OK
+    
+    
 # complex objects have schema definitions
 definitions:
   ErrorResponse:
