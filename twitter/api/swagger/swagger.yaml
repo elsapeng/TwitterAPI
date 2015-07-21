@@ -1,12 +1,12 @@
 swagger: "2.0"
 info:
-  version: "0.0.1"
-  title: Hello World App
+  version: "1.1"
+  title: Twitter REST API
 # during dev, should point to your local machine
-host: localhost:10010
-# basePath prefixes all resource paths 
-basePath: /
-# 
+host: api.twitter.com
+# basePath prefixes all resource paths
+basePath: /1.1
+#
 schemes:
   # tip: remove http to make production-grade
   - http
@@ -17,6 +17,18 @@ consumes:
 # format of the responses to the client (Accepts)
 produces:
   - application/json
+securityDefinitions:
+  oauth:
+    type: oauth2
+    flow: implicit
+    authorizationUrl: https://instagram.com/oauth/authorize/?client_id=CLIENT-ID&redirect_uri=REDIRECT-URI&response_type=token
+    scopes:
+      basic: |
+       to read any and all data related to a user (e.g. following/followed-by
+        lists, photos, etc.) (granted by default)
+security:
+  - oauth:
+    - basic
 paths:
   /statuses/mentions_timeline:
     get:
@@ -119,9 +131,6 @@ paths:
       responses:
         "200":
           description: Success
-          schema:
-            # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
         # responses may fall through to errors
         default:
           description: Error
@@ -129,12 +138,6 @@ paths:
             $ref: "#/definitions/ErrorResponse"
 # complex objects have schema definitions
 definitions:
-  HelloWorldResponse:
-    required:
-      - message
-    properties:
-      message:
-        type: string
   ErrorResponse:
     required:
       - message
