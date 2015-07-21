@@ -21,8 +21,14 @@ securityDefinitions:
   oauth:
     type: oauth2
     flow: implicit
+    authorizationUrl: https://instagram.com/oauth/authorize/?client_id=CLIENT-ID&redirect_uri=REDIRECT-URI&response_type=token
+    scopes:
+      basic: |
+       to read any and all data related to a user (e.g. following/followed-by
+        lists, photos, etc.) (granted by default)
 security:
-  - oauth
+  - oauth:
+    - basic
 paths:
   /hello:
     # binds a127 app logic to a route
@@ -40,9 +46,6 @@ paths:
       responses:
         "200":
           description: Success
-          schema:
-            # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
         # responses may fall through to errors
         default:
           description: Error
