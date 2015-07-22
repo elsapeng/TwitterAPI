@@ -379,7 +379,7 @@ paths:
         "200":
           description: Success
   /lists/statuses:
-   get:
+    get:
       description: 
       parameters:
         - name: list_id 
@@ -431,7 +431,7 @@ paths:
         "200":
           description: Success
   /lists/members/destroy:
-   get:
+    get:
       description: 
       parameters:
         - name: list_id 
@@ -442,181 +442,447 @@ paths:
         - name: slug
           in: query
           description: You can identify a list by its slug instrad of its numerical id 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+          required: true 
+          type: string
+        - name: owner_screen_name
+          in: query
+          description: The screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: user_id
+          in: query
+          description: The id of the user for whom to remove from the list 
+          required: false
+          type: string
+        - name: screen_name
+          in: query
+          description: The screen name of the user for whom to remove from the list 
+          required: false
+          type: string 
+        - name: owner_id
+          in: query
+          description: The is of the user who wons the list being requested by a slug
+          required: false
+          type: string 
       responses: 
         "200":
           description: Success
   /lists/memberships:
-   get:
+    get:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: user_id 
+          in: query
+          description: The id of the user for whom to return results for  
+          required: false
+          type: string
+        - name: screen_name
+          in: query
+          description: The screen name of the user for whom to return results for
+          required: false
+          type: string
+        - name: cursor
+          in: query
+          description: Breaks the results into pages
+          required: false
+          type: string
+        - name: filter_to_owned_lists
+          in: query
+          description: When set to true, t or 1, will return just lists the authenticating user owns
+          required: false
+          type: string
       responses: 
         "200":
           description: Success
   /lists/subscribers:
-   get:
+    get:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: list_id
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list by its slug insted of its numerical id  
+          required: true
+          type: string 
+        - name: owner_screen_name
+          in: query
+          description: the screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: owner_id
+          in: query
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
+        - name: cursor
+          in: query
+          description: Breaks the results into pages 
+          required: false
+          type: string
+        - name: include_entities
+          in: query
+          description: Wehn set to either true, t or 1
+          required: false
+          type: string
+        - name: skip_status
+          in: query
+          description: When set to either true, t or 1 
+          required: false
+          type: string 
       responses: 
         "200":
           description: Success
   /lists/subscribers/create:
-   get:
+    post:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: list_id  
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list being requested by a slug 
+          required: true
+          type: string
+        - name: owner_screen_name
+          in: query
+          description: the screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: owner_id
+          in: query
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
       responses: 
         "200":
           description: Success
   /lists/subscribers/show:
-   get:
+    get:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: list_id  
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list being requested by a slug 
+          required: true
+          type: string
+        - name: owner_screen_name
+          in: query
+          description: The screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: user_id
+          in: query
+          description: The id of the user for whom to remove from the list 
+          required: false
+          type: string
+        - name: screen_name
+          in: query
+          description: The screen name of the user for whom to remove from the list 
+          required: false
+          type: string 
+        - name: owner_id
+          in: query
+          description: The is of the user who wons the list being requested by a slug
+          required: false
+          type: string 
+        - name: include_entities
+          in: query
+          description: Wehn set to either true, t or 1
+          required: false
+          type: string
+        - name: skip_status
+          in: query
+          description: When set to either true, t or 1 
+          required: false
+          type: string 
       responses: 
         "200":
           description: Success
   /lists/subscribers/destroy:
-   get:
+    get:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: list_id  
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list being requested by a slug 
+          required: true
+          type: string
+        - name: owner_screen_name
+          in: query
+          description: the screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: owner_id
+          in: query
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
       responses: 
         "200":
           description: Success
-  /lists/memebers:
-   get:
+  /lists/memebers/create_all:
+    get:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: list_id  
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list being requested by a slug 
+          required: true
+          type: string
+        - name: owner_screen_name
+          in: query
+          description: the screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: owner_id
+          in: query
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
+        - name: user_id
+          in: query
+          description: The id of the user for whom to remove from the list 
+          required: false
+          type: string
+        - name: screen_name
+          in: query
+          description: The screen name of the user for whom to remove from the list 
+          required: false
+          type: string 
+      responses: 
+        "200":
+          description: Success
+  /list/memebers/show:
+    get:
+      description: 
+      parameters:
+        - name: list_id  
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list being requested by a slug 
+          required: true
+          type: string
+        - name: user_id
+          in: query
+          description: The id of the user for whom to remove from the list 
+          required: false
+          type: string
+        - name: screen_name
+          in: query
+          description: The screen name of the user for whom to remove from the list 
+          required: false
+          type: string 
+        - name: owner_screen_name
+          in: query
+          description: The screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: owner_id
+          in: query
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
+        - name: include_entities
+          in: query
+          description: Wehn set to either true, t or 1
+          required: false
+          type: string
+        - name: skip_status
+          in: query
+          description: When set to either true, t or 1 
+          required: false
+          type: string 
+      responses: 
+        "200":
+          description: Success
+  /list/memebers:
+    get:
+      description: 
+      parameters:
+        - name: list_id  
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list being requested by a slug 
+          required: true
+          type: string
+        - name: owner_screen_name
+          in: query
+          description: The screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: owner_id
+          in: query
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
+        - name: include_entities
+          in: query
+          description: Wehn set to either true, t or 1
+          required: false
+          type: string
+        - name: skip_status
+          in: query
+          description: When set to either true, t or 1 
+          required: false
+          type: string 
+        - name: cursor
+          in: query
+          description: Breaks the results into pages 
+          required: false
+          type: string
+      responses: 
+        "200":
+          description: Success
+  /list/memebers/create:
+   post:
+      description: 
+      parameters:
+        - name: list_id  
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list being requested by a slug 
+          required: true
+          type: string
+        - name: screen_name
+          in: query
+          description: The screen name of the user for whom to remove from the list 
+          required: false
+          type: string 
+        - name: owner_screen_name
+          in: query
+          description: The screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: owner_id
+          in: query
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
       responses: 
         "200":
           description: Success
   /lists/destroy:
-   get:
+   post:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: list_id  
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list being requested by a slug 
+          required: true
+          type: string
+        - name: owner_screen_name
+          in: query
+          description: The screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: owner_id
+          in: query
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
       responses: 
         "200":
           description: Success
   /lists/update:
-   get:
+   post:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: list_id  
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list being requested by a slug 
+          required: true
+          type: string
+        - name: owner_screen_name
+          in: query
+          description: The screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: owner_id
+          in: query
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
+        - name: name 
+          in: query
+          description: The name for the list 
+          required: false
+          type: string
+        - name: mode
+          in: query
+          description: Whether your list is public or private 
+          required: false
+          type: string
+        - name: description
+          in: query
+          description: The description to give the list 
+          required: false
+          type: string
       responses: 
         "200":
           description: Success
   /lists/create:
-   get:
+   post:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: name 
+          in: query
+          description: The name for the list 
+          required: false
+          type: string
+        - name: mode
+          in: query
+          description: Whether your list is public or private 
+          required: false
+          type: string
+        - name: description
+          in: query
+          description: The description to give the list 
+          required: false
+          type: string
       responses: 
         "200":
           description: Success
@@ -624,16 +890,26 @@ paths:
    get:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: list_id  
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list being requested by a slug 
+          required: true
+          type: string
+        - name: owner_screen_name
+          in: query
+          description: The screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: owner_id
+          in: query
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
       responses: 
         "200":
           description: Success
@@ -641,16 +917,26 @@ paths:
    get:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: screen_name
+          in: query
+          description: The screen name of the user 
+          required: false
+          type: string
+        - name: user_id
+          in: query
+          description: The id of the user for whom to return results for 
+          required: false
+          type: string
+        - name: count
+          in: query
+          description: The amount of results to return per page 
+          required: false
+          type: string
+        - name: cursor
+          in: query
+          description: Breaks the results into pages 
+          required: false
+          type: string
       responses: 
         "200":
           description: Success
@@ -658,16 +944,36 @@ paths:
    get:
       description: 
       parameters:
-        - name:  
-          in: 
-          description: 
-          required: 
-          type:
-        - name: 
-          in: 
-          description: 
-          required: 
-          type:
+        - name: list_id  
+          in: query
+          description: The numerical id of the list 
+          required: true
+          type: string
+        - name: slug
+          in: query
+          description: You can identify a list being requested by a slug 
+          required: true
+          type: string
+        - name: user_id
+          in: query
+          description: The id of the user for whom to remove from the list 
+          required: false
+          type: string
+        - name: screen_name
+          in: query
+          description: The screen name of the user for whom to remove from the list 
+          required: false
+          type: string 
+        - name: owner_screen_name
+          in: query
+          description: The screen name of the user who owns the list being requested by a slug
+          required: false
+          type: string
+        - name: owner_id
+          in: query
+          description: The user ID of the user who owns the list being requested by a slug
+          required: false
+          type: string 
       responses: 
         "200":
           description: Success  
