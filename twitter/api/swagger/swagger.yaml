@@ -1104,11 +1104,311 @@ paths:
     
   /account/update_profile_background_image:
     post:
-      summary: 
-      description: 
+      summary: updates user's profile background image
+      description: updates user's profile background image
+      consumes:
+        - multipart/form-data
+      parameters:
+      - name: tile
+        in: query
+        description: whether or not to tile background image
+        type: string
+      - name: use
+        in: query
+        description: display background image or not
+        type: string
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      - name: skip_status
+        in: query
+        description: whether or not to include status in returned user objects
+        type: string
+      - name: file
+        in: formData
+        description: image to replace background image of profile
+        required: true
+        type: file
       responses:
         200:
           description: OK
+    
+  /account/update_profile_colors:
+    post:
+      summary: sets one or more hex values that controls color scheme
+      description: sets one or more hex values that controls color scheme
+      parameters:
+      - name: profile_background_color
+        in: query
+        description: profile background color
+        type: string
+      - name: profile_link_color
+        in: query
+        description: profile link color
+        type: string
+      - name: profile_sidebar_border_color
+        in: query
+        description: profile sidebar's border color
+        type: string
+      - name: profile_sidebar_fill_color
+        in: query
+        description: profile's sidebar background color
+        type: string
+      - name: profile_text_color
+        in: query
+        description: profile text color
+        type: string
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      - name: skip_status
+        in: query
+        description: whether or not to include statuses
+        type: string
+      responses:
+        200:
+          description: OK
+    
+  /account/update_profile_image:
+    post:
+      summary: updates user's profile image
+      description: updates user's profile image
+      consumes:
+        - multipart/form-data
+      parameters:
+      - name: skip_status
+        in: query
+        description: whether or not to include statuses
+        type: string
+      - name: image
+        in: formData
+        description: image to be set as profile image
+        type: file
+        required: true
+      responses:
+        200:
+          description: OK
+    
+  /blocks/list:
+    get:
+      summary: disallows retweets and device notifications from a user
+      description: disallows retweets and device notifications from a user
+      parameters:
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      - name: skip_status
+        in: query
+        description: whether or not to include statuses in response
+        type: string
+      - name: cursor
+        in: query
+        description: breaks block of user to be broken up into pages
+        type: string
+      responses:
+        200:
+          description: OK
+  
+  /blocks/ids:
+    get:
+      summary: returns array of numeric user ids of blocked users
+      description: returns array of numeric user ids of blocked users
+      parameters:
+      - name: stringify_ids
+        in: query
+        description: returns array of numeric IDs as string IDs
+        type: string
+      - name: cursor
+        in: query
+        description: breaks up block of user IDs into pages
+        type: string
+      responses:
+        200:
+          description: OK
+    
+  /blocks/create:
+    post:
+      summary: blocks the specified user
+      description: blocks the specified user
+      parameters:
+      - name: screen_name
+        in: query
+        description: screen name of user to be blocked
+        type: string
+        required: true
+      - name: user_id
+        in: query
+        description: ID of user to be blocked
+        type: string
+        required: true
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      - name: skip_status
+        in: query
+        description: whether or not to skip statuses
+        type: string
+      responses:
+        200:
+          description: OK
+    
+  /blocks/destroy:
+    post:
+      summary: un-blocks the specified user
+      description: un-blocks the specified user
+      parameters:
+      - name: screen_name
+        in: query
+        description: screen name of user to be un-blocked
+        type: string
+        required: true
+      - name: user_id
+        in: query
+        description: ID of user to be un-blocked
+        type: string
+        required: true
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      - name: skip_status
+        in: query
+        description: whether or not to skip statuses
+        type: string
+      responses:
+        200:
+          description: OK
+    
+  /users/lookup:
+    get:
+      summary: returns fully-hydrated user objects up to 100
+      description: returns fully-hydrated user objects up to 100
+      parameters:
+      - name: screen_name
+        in: query
+        description: screen name of user to lookup
+        type: string
+      - name: user_id
+        in: query
+        description: ID of user to lookup
+        type: string
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      responses:
+        200:
+          description: OK
+    
+  /users/show:
+    get:
+      summary: returns a variety of info about specified user
+      description: returns a variety of info about specified user
+      parameters:
+      - name: screen_name
+        in: query
+        description: screen name of user to be shown
+        type: string
+        required: true
+      - name: user_id
+        in: query
+        description: ID of user to be shown
+        type: string
+        required: true
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      responses:
+        200:
+          description: OK
+    
+  /users/search:
+    get:
+      summary: simple relevance-based user search
+      description: simple relevance-based user search
+      parameters:
+      - name: q
+        in: query
+        description: the search query to run against people search
+        type: string
+        required: true
+      - name: page
+        in: query
+        description: specifies the page of results to receive
+        type: string
+      - name: count
+        in: query
+        description: number of people to return per page
+        type: string
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      responses:
+        200:
+          description: OK
+  
+  /users/contributees:
+    get:
+      summary: collection of users specified user can contribute to
+      description: collection of users specified user can contribute to
+      parameters:
+      - name: screen_name
+        in: query
+        description: screen name of user that is contributed to
+        type: string
+        required: true
+      - name: user_id
+        in: query
+        description: ID of user to that is contributed to
+        type: string
+        required: true
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      - name: skip_status
+        in: query
+        description: whether or not to skip statuses
+        type: string
+      responses:
+        200:
+          description: OK
+  
+  /users/contributors:
+    get:
+      summary: collection of users that can contribute to specified account
+      description: collection of users that can contribute to specified account
+      parameters:
+      - name: screen_name
+        in: query
+        description: screen name of user contributing
+        type: string
+        required: true
+      - name: user_id
+        in: query
+        description: ID of user contributing
+        type: string
+        required: true
+      - name: include_entities
+        in: query
+        description: whether or not to include entities
+        type: string
+      - name: skip_status
+        in: query
+        description: whether or not to skip statuses
+        type: string
+      responses:
+        200:
+          description: OK
+
+  
+
 definitions:
   ErrorResponse:
     required:
