@@ -33,6 +33,9 @@ paths:
   /statuses/mentions_timeline:
     get:
       description: statuses of mentions_timeline
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: count
           in: query
@@ -70,6 +73,9 @@ paths:
   /statuses/user_timeline:
     get: 
       description: statuses of user_timeline
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: count
           in: query
@@ -112,6 +118,9 @@ paths:
   /statuses/home_timeline:
     get:
       description: statuses of home_timelines
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: since_id
           in: query
@@ -144,6 +153,9 @@ paths:
   /statuses/retweets/{id}:
     get:
       description: Return up to 100 of the first retweets of a given tweet
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: id 
           in: path
@@ -166,6 +178,9 @@ paths:
   /statuses/show/{id}:
     get:
       description: Returns a single status, specified by the id parameter below
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: id
           in: path
@@ -194,6 +209,9 @@ paths:
   /statuses/destroy/{id}:
     post:
       description: Destroys the status specified by the required ID parameter
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: id
           in: path
@@ -211,6 +229,9 @@ paths:
   /statuses/update:
     post:
       description: Updates the authenticating user's status
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: status
           in: query
@@ -253,6 +274,9 @@ paths:
   /statuses/retweets/{id}:
     post:
       description: Retweens a tweet
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: id
           in: path
@@ -270,6 +294,9 @@ paths:
   /statuses/update_with_media:
     post:
       description: Updates the authenticating user's status and attaches media for upload
+      security:
+        - oauth:
+          - basic
       parameters:
         - name: status
           in: query
@@ -317,6 +344,9 @@ paths:
   /statuses/oembed:
     get:
       description: Returns information allowing the creation of an embedded representation
+      security:
+       - oauth:
+         - basic
       parameters: 
         - name: id
           in: query
@@ -363,7 +393,10 @@ paths:
           description: Success
   /lists/list:
     get:
-      description: 
+      description: Return the list 
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: screen_name 
           in: query 
@@ -380,7 +413,10 @@ paths:
           description: Success
   /lists/statuses:
     get:
-      description: 
+      description: Returns the list of statuses
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id 
           in: query
@@ -432,7 +468,10 @@ paths:
           description: Success
   /lists/members/destroy:
     get:
-      description: 
+      description: Returns the list of memebers destroy
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id 
           in: query
@@ -469,7 +508,10 @@ paths:
           description: Success
   /lists/memberships:
     get:
-      description: 
+      description: Returns the list of memebership
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: user_id 
           in: query
@@ -496,7 +538,10 @@ paths:
           description: Success
   /lists/subscribers:
     get:
-      description: 
+      description: Returns the list of subscribers
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id
           in: query
@@ -538,7 +583,10 @@ paths:
           description: Success
   /lists/subscribers/create:
     post:
-      description: 
+      description: Returns the list of subscribers
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id  
           in: query
@@ -565,7 +613,10 @@ paths:
           description: Success
   /lists/subscribers/show:
     get:
-      description: 
+      description: Returns the list of subscribers show
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id  
           in: query
@@ -612,7 +663,7 @@ paths:
           description: Success
   /lists/subscribers/destroy:
     get:
-      description: 
+      description: Returns list of subscribers destroy
       parameters:
         - name: list_id  
           in: query
@@ -639,7 +690,10 @@ paths:
           description: Success
   /lists/memebers/create_all:
     get:
-      description: 
+      description: Returns lists of members create_all
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id  
           in: query
@@ -676,7 +730,10 @@ paths:
           description: Success
   /list/memebers/show:
     get:
-      description: 
+      description: Returns memebers list show
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id  
           in: query
@@ -723,7 +780,10 @@ paths:
           description: Success
   /list/memebers:
     get:
-      description: 
+      description: Returns list members
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id  
           in: query
@@ -765,7 +825,10 @@ paths:
           description: Success
   /list/memebers/create:
    post:
-      description: 
+      description: Returns list of members create
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id  
           in: query
@@ -797,7 +860,10 @@ paths:
           description: Success
   /lists/destroy:
    post:
-      description: 
+      description: Returns list of destroy
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id  
           in: query
@@ -824,7 +890,10 @@ paths:
           description: Success
   /lists/update:
    post:
-      description: 
+      description: Returns lists of updates
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id  
           in: query
@@ -866,7 +935,10 @@ paths:
           description: Success
   /lists/create:
    post:
-      description: 
+      description: Returns list of create
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: name 
           in: query
@@ -888,7 +960,10 @@ paths:
           description: Success
   /lists/show:
    get:
-      description: 
+      description: Returns list of show
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id  
           in: query
@@ -915,7 +990,10 @@ paths:
           description: Success
   /lists/subscriptions:
    get:
-      description: 
+      description: Returns list of subscriptions
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: screen_name
           in: query
@@ -942,7 +1020,10 @@ paths:
           description: Success
   /list/members/destroy_all:
    get:
-      description: 
+      description: Returns lists of destroy all
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: list_id  
           in: query
@@ -976,7 +1057,8 @@ paths:
           type: string 
       responses: 
         "200":
-          description: Success  
+          description: Success 
+  
   /direct_messages/sent:
     get:
       description: return 20 most recent direct messages sent
@@ -1074,6 +1156,61 @@ paths:
       responses:
         200:
           description: OK
+          
+  /saved_searches/list:
+    get:
+      description: Returns the authenticated user's saved search queries
+      security:
+       - oauth:
+         - basic
+      responses:
+        "200":
+          description: Success
+  /saved_searches/show/{id}:
+    get:
+      description: Returns the authenticated user's saved search queries
+      security:
+       - oauth:
+         - basic
+      parameters:
+        - name: id
+          in: path
+          description: The id of the saved search
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+  /saved_searches/create:
+    post:
+      description: Create a new saved search for the authenticated user
+      security:
+       - oauth:
+         - basic
+      parameters:
+        - name: query
+          in: query
+          description: The query of the search the user would like to save
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+  /saved_searches/destroy/{id}:
+    post:
+      description: Destroy a saved search for the authenticating user
+      security:
+       - oauth:
+         - basic
+      parameters:
+        - name: id 
+          in: path
+          description: The id of the saved search
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
     
   /direct_messages:
     get:
@@ -1408,17 +1545,4 @@ paths:
         200:
           description: OK
     
-  /account/update_profile_background_image:
-    post:
-      summary: 
-      description: 
-      responses:
-        200:
-          description: OK
-definitions:
-  ErrorResponse:
-    required:
-      - message
-    properties:
-      message:
-        type: string
+  
