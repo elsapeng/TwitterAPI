@@ -448,10 +448,10 @@ paths:
           description: Returns results with an ID less than or equal to the specified ID
           required: false
           type: string
-        - name: 
-          in: count
-          description: query  
-          required: Specifies the number of results to retrieve per page
+        - name: count
+          in: query
+          description: Specifies the number of results to retrieve per page 
+          required: false
           type: string
         - name: include_entities
           in: query 
@@ -1090,6 +1090,9 @@ paths:
   /direct_messages/show:
     get:
       description: returns a single direct message specified by an id
+      security:
+       - oauth:
+         - basic
       parameters:
         - name: id
           in: query
@@ -1103,6 +1106,9 @@ paths:
   /search/tweets:
     get:
       description: returns collection of relevant Tweets matching query
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: q
         in: query
@@ -1215,6 +1221,9 @@ paths:
   /direct_messages:
     get:
       description: return 20 most recent direct messages sent to user
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: since_id
         in: query
@@ -1239,6 +1248,9 @@ paths:
   /direct_messages/destroy:
     post:
       description: destroys direct messages specified in required ID
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: id
         in: query
@@ -1256,6 +1268,9 @@ paths:
   /direct_messages/new:
     post:
       description: sends a new direct message to specified user
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: user_id
         in: query
@@ -1278,6 +1293,9 @@ paths:
   /friends/ids:
     get:
       description: returns a cursored collection of user IDs followed by user
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: user_id
         in: query
@@ -1306,6 +1324,9 @@ paths:
   /followers/ids:
     get:
       description: returns a cursored collection of user IDs following the user
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: user_id
         in: query
@@ -1334,6 +1355,9 @@ paths:
   /friendships/incoming:
     get:
       description: returns collection of IDs of users with pending follow request
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: cursor
         in: query
@@ -1350,6 +1374,9 @@ paths:
   /friendships/outgoing:
     get:
       description: returns collection of IDs of users with pending follow request from the user
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: cursor
         in: query
@@ -1366,6 +1393,9 @@ paths:
   /friendships/create:
     post:
       description: allows users to follow user sepcified by ID
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: screen_name
         in: query
@@ -1386,6 +1416,9 @@ paths:
   /friendships/destroy:
     post:
       description: allows user to unfollow user psecified by ID
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: screen_name
         in: query
@@ -1404,6 +1437,9 @@ paths:
   /friendships/update:
     post:
       description: Allows one to enable or disable settings for specified user
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: screen_name
         in: query
@@ -1432,6 +1468,9 @@ paths:
   /friendships/show:
     get:
       description: returns detailed info about relationship between two users
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: source_id
         in: query
@@ -1459,12 +1498,18 @@ paths:
     get:
       summary: returns settings for user
       description: returns settings for user
+      security:
+       - oauth:
+         - basic
       responses:
         200:
           description: OK
     post:
       summary: updates user's settings
       description: updates user's settings
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: trend_location_woeid
         in: query
@@ -1498,6 +1543,9 @@ paths:
     post:
       summary: sets which device Twitter delivers updates to for user
       description: sets which device Twitter delivers updates to for user
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: device
         in: query
@@ -1516,6 +1564,9 @@ paths:
     post:
       summary: sets values that users ar eable to set under Account tab
       description: sets values that users ar eable to set under Account tab
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: name
         in: query
@@ -1549,6 +1600,9 @@ paths:
     post:
       summary: updates user's profile background image
       description: updates user's profile background image
+      security:
+       - oauth:
+         - basic
       consumes:
         - multipart/form-data
       parameters:
@@ -1581,6 +1635,9 @@ paths:
     post:
       summary: sets one or more hex values that controls color scheme
       description: sets one or more hex values that controls color scheme
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: profile_background_color
         in: query
@@ -1618,6 +1675,9 @@ paths:
     post:
       summary: updates user's profile image
       description: updates user's profile image
+      security:
+       - oauth:
+         - basic
       consumes:
         - multipart/form-data
       parameters:
@@ -1638,6 +1698,9 @@ paths:
     get:
       summary: disallows retweets and device notifications from a user
       description: disallows retweets and device notifications from a user
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: include_entities
         in: query
@@ -1659,6 +1722,9 @@ paths:
     get:
       summary: returns array of numeric user ids of blocked users
       description: returns array of numeric user ids of blocked users
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: stringify_ids
         in: query
@@ -1676,6 +1742,9 @@ paths:
     post:
       summary: blocks the specified user
       description: blocks the specified user
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: screen_name
         in: query
@@ -1703,6 +1772,9 @@ paths:
     post:
       summary: un-blocks the specified user
       description: un-blocks the specified user
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: screen_name
         in: query
@@ -1730,6 +1802,9 @@ paths:
     get:
       summary: returns fully-hydrated user objects up to 100
       description: returns fully-hydrated user objects up to 100
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: screen_name
         in: query
@@ -1751,6 +1826,9 @@ paths:
     get:
       summary: returns a variety of info about specified user
       description: returns a variety of info about specified user
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: screen_name
         in: query
@@ -1774,6 +1852,9 @@ paths:
     get:
       summary: simple relevance-based user search
       description: simple relevance-based user search
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: q
         in: query
@@ -1800,6 +1881,9 @@ paths:
     get:
       summary: collection of users specified user can contribute to
       description: collection of users specified user can contribute to
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: screen_name
         in: query
@@ -1827,6 +1911,9 @@ paths:
     get:
       summary: collection of users that can contribute to specified account
       description: collection of users that can contribute to specified account
+      security:
+       - oauth:
+         - basic
       parameters:
       - name: screen_name
         in: query
@@ -1849,4 +1936,354 @@ paths:
       responses:
         200:
           description: OK
+          
+  /geo/id/{place_id}:
+    get:
+      description: Returns all the information about a know place
+      security: 
+       - oauth:
+         - basic
+      parameters:
+        - name: place_id
+          in: path
+          description: A place in the world
+          required: true
+          type: string
+      responses:
+        200:
+          description: Success
+  /geo/reverse_geoncode:
+    get:
+      description: Given a latitude and a longitude, searches for up to 20 places that can be used as a place_id when updatting a status
+      security:
+       - oauth:
+         - basic
+      parameters:
+        - name: lat
+          in: query
+          description: The latitude to search around
+          required: true
+          type: string
+        - name: long
+          in: query
+          description: The longtitude to search around
+          required: true
+          type: string
+        - name: accuracy
+          in: query
+          description: A hint on region in which to search
+          required: false
+          type: string
+        - name: granularity
+          in: query
+          description: This is the minimal granularity of place types to return 
+          required: false
+          type: string
+        - name: max_results
+          in: query
+          description: A hint as to the number of results to return
+          required: false
+          type: string
+        - name: callback
+          in: query
+          description: If supplied, the responses will use the JSON format with a callback of the given name 
+          required: false
+          type: string
+      responses:
+        200:
+          description: Success
+  /geo/search:
+    get:
+      description: Search for places that can be attached to a statuses/updates
+      security:
+       - oauth:
+         - basic
+      parameters:
+        - name: lat
+          in: query
+          description: The latitude to search around
+          required: true
+          type: string
+        - name: long
+          in: query
+          description: The longtitude to search around
+          required: true
+          type: string
+        - name: query
+          in: query
+          description: Free-form text to match against while executing a geo-based query
+          required: true
+          type: string
+        - name: ip 
+          in: query
+          description: An Ip address
+          required: true
+          type: string
+        - name: accuracy
+          in: query
+          description: A hint on region in which to search
+          required: false
+          type: string
+        - name: granularity
+          in: query
+          description: This is the minimal granularity of place types to return 
+          required: false
+          type: string
+        - name: contained_within
+          in: query
+          description: This is the place_id which you would like to restrict the search results to
+          required: false
+          type: string
+        - name: attribute:street_address
+          in: query
+          description: This parameter searches for places which have this givven street address
+          required: false
+          type: string
+        - name: callback
+          in: query
+          description: If supplied, the responses will use the JSON format with a callback of the given name 
+          required: false
+          type: string
+      responses:
+        200:
+          description: Success
+  /geo/similar_places:
+    get:
+      description: Locates places near the given coordinates which are similar in name
+      security:
+       - oauth:
+         - basic
+      parameters:
+        - name: lat
+          in: query
+          description: The latitude to search around
+          required: true
+          type: string
+        - name: long
+          in: query
+          description: The longtitude to search around
+          required: true
+          type: string
+        - name: name
+          in: query
+          description: The name a place is known as
+          required: true
+          type: string
+        - name: contained_within
+          in: query
+          description: This is the place_id which you would like to restrict the search results to
+          required: false
+          type: string
+        - name: attribute:street_address
+          in: query
+          description: This parameter searches for places which have this givven street address
+          required: false
+          type: string
+        - name: callback
+          in: query
+          description: If supplied, the responses will use the JSON format with a callback of the given name 
+          required: false
+          type: string
+      responses:
+        200:
+          description: Success
+          
+  /geo/places:
+    get:
+      description: Create a new place object at the given latitude and logitude
+      security:
+       - oauth:
+         - basic
+      parameters:
+        - name: lat
+          in: query
+          description: The latitude to search around
+          required: true
+          type: string
+        - name: long
+          in: query
+          description: The longtitude to search around
+          required: true
+          type: string
+        - name: name
+          in: query
+          description: The name a place is known as
+          required: true
+          type: string
+        - name: token
+          in: query
+          description: The token found in the response from geo/similar_places
+          required: true
+          type: string
+        - name: contained_within
+          in: query
+          description: This is the place_id which you would like to restrict the search results to
+          required: false
+          type: string
+        - name: attribute:street_address
+          in: query
+          description: This parameter searches for places which have this givven street address
+          required: false
+          type: string
+        - name: callback
+          in: query
+          description: If supplied, the responses will use the JSON format with a callback of the given name 
+          required: false
+          type: string
+      responses:
+        200:
+          description: Success
+          
+  /trends/place:
+      get:
+        description: Returns the top 10 trending topics for a specific WOEID
+        security:
+          - oauth:
+            - basic
+        parameters:
+          - name: id 
+            in: query
+            description: The yahoo where on earch id 
+            required: true
+            type: string
+          - name: exclude 
+            in: query
+            description: Setting this equal to hashtages will remove all hashtages from the trends list
+            required: true
+            type: string
+        responses:
+          200:
+            description: Success
+  /trends/available:
+      get:
+        description: Returns the availability
+        security:
+          - oauth:
+            - basic
+        responses:
+          200:
+            description: Success
+  /trends/closest:
+      get:
+        description: Returns the location that Twitter has trending topic information for
+        security:
+          - oauth:
+            - basic
+        parameters:
+          - name: lat
+            in: query
+            description: If provided with a long parameter the available trend locations wil be stored by distance
+            required: true 
+            type: string
+          - name: long
+            in: query
+            description: If provided with a lat parameters the available trend locations will be sorted by distance
+            required: true
+            type: string
+        responses:
+          200:
+            description: Success
+  /users/report_spam:
+      post:
+        description: Returna users report spam 
+        security:
+          - oauth:
+            - basic
+        parameters:
+          - name: screen_name
+            in: query
+            description: The ID or screen_name of the user you want to report as a spammer
+            required: false
+            type: string 
+          - name: user_id
+            in: query
+            description: The ID of the user you want to report as a spammer
+            required: false
+            type: string 
+        responses:
+          200:
+            description: Success
+  /help/configuration:
+      get:
+        description: Returns the current configuration used by Twitter including twitter.com slugs which are not usernames
+        security:
+          - oauth:
+            - basic
+        responses:
+          200:
+            description: Success
+  /help/languages:
+      get:
+        description: Returns the list of languages supported by Twitter along with the language code supported by Twitter
+        security:
+          - oauth:
+            - basic
+        responses:
+          200:
+            description: Success
+  /help/privacy:
+      get:
+        description: Returns Twitter's privacy policy 
+        security:
+          - oauth:
+            - basic
+        responses:
+          200:
+            description: Success
+  /help/tos:
+      get:
+        description: Returns the Twitter Terms of Service
+        security:
+          - oauth:
+            - basic
+        responses:
+          200:
+            description: Success
+  /application/rate_limit_status:
+      get:
+        description: Returns the current rate limits for methods belonging to the specified resource families
+        security:
+          - oauth:
+            - basic
+        parameters:
+          - name: resources
+            in: query
+            description: A comma-separated list of resource families you want to know the current rate limit disposition for
+            required: false
+            type: array
+            items: 
+              type: string
+        responses:
+          200:
+            description: Success
+            
+            
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+      username:
+        type: string
+      full_name:
+        type: string
+      profile_picture:
+        type: string
+      bio:
+        type: string
+      website:
+        type: string
+      counts:
+        type: object
+        properties:
+          media:
+            type: integer
+          follows:
+            type: integer
+          follwed_by:
+            type: integer
 
